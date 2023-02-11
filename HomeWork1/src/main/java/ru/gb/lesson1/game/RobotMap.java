@@ -11,9 +11,16 @@ public class RobotMap {
     private final List<Robot> robots;
 
     public RobotMap(int n, int m) {
+        validateRobotMap(n, m);
         this.n = n;
         this.m = m;
         this.robots = new ArrayList<>();
+    }
+
+    private void validateRobotMap(int n, int m) {
+        if (n <= 0 || m <= 0) {
+            throw new IllegalStateException("Некоректное значение размеров карты!");
+        }
     }
 
     public Robot createRobot(Point point) {
