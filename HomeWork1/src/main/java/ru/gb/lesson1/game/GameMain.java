@@ -31,11 +31,7 @@ public class GameMain {
 
         RobotMap.Robot robot = map.createRobot(new Point(2, 3));
         System.out.println(robot); // [2, 3], [TOP]
-        robot.move();
-        robot.move();
-        robot.move();
-        robot.move();
-        robot.move();
+        robot.move(2);
         System.out.println(robot); // [1, 3], [TOP]
         robot.changeDirection(Direction.BOTTOM);
         robot.move();
