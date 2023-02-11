@@ -7,14 +7,20 @@ public class RobotMap {
 
     private final int n;
     private final int m;
+    private final int maxRobots;
 
     private final List<Robot> robots;
 
-    public RobotMap(int n, int m) {
+    public RobotMap(int n, int m, int maxRobots) {
         validateRobotMap(n, m);
+        this.maxRobots = maxRobots;
         this.n = n;
         this.m = m;
         this.robots = new ArrayList<>();
+    }
+
+    public RobotMap(int n, int m) {
+        this(n, m, 5);
     }
 
     private void validateRobotMap(int n, int m) {
@@ -24,6 +30,7 @@ public class RobotMap {
     }
 
     public Robot createRobot(Point point) {
+        validateMaxRobots();
         validatePoint(point);
         Robot robot = new Robot(point);
         robots.add(robot);
@@ -34,6 +41,12 @@ public class RobotMap {
     private void validatePoint(Point point) {
         validatePointIsCorrect(point);
         validatePointIsFree(point);
+    }
+
+    private void validateMaxRobots() {
+        if (robots.size() >= maxRobots) {
+            throw new IllegalStateException("Превышено максимальное число роботов на карте!");
+        }
     }
 
     private void validatePointIsCorrect(Point point) {
