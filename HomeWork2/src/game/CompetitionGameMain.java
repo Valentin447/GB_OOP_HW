@@ -60,14 +60,15 @@ public class CompetitionGameMain {
                 new WallObstacleAdapter(new Wall(40)),
                 new RoadObstacleAdapter(new Road(100)),
                 new RoadObstacleAdapter(new Road(45)),
-                new SwimObstacleAdapter(new SwimmingPoll(20))
+                new SwimObstacleAdapter(new SwimmingPoll(20)),
+                new HunterObstacleAdapter(new Hunter (50))
         };
     }
 
     private static Participant[] createParticipants() {
         return new Participant[] {
-                new StandardParticipant("Igor", 50, 30, 20),
-                new Cat("Murzik", 60, 25),
+                new StandardParticipant("Igor", 50, 30, 20, 40),
+                new Cat("Murzik", 60, 25, 100),
                 new Cheater("Cheater")
         };
     }
