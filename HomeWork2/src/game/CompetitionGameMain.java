@@ -60,7 +60,7 @@ public class CompetitionGameMain {
                 new WallObstacleAdapter(new Wall(40)),
                 new RoadObstacleAdapter(new Road(100)),
                 new RoadObstacleAdapter(new Road(45)),
-                new SwimmingPoll(20)
+                new SwimObstacleAdapter(new SwimmingPoll(20))
         };
     }
 
