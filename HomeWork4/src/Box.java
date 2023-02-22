@@ -1,20 +1,31 @@
-public class Box /*<T>*/ /* FIXME Исправлять тут! */ {
+import java.util.ArrayList;
+
+public class Box<T extends Fruit> {
 
     // Нужно реализовать хранение фрукто в коробке Box
 
-    public void add(Object fruit) {
-        // FIXME: 21.02.2023 Написать логику сохранения
-        throw new UnsupportedOperationException();
+    private ArrayList<T> fruitBox;
+
+    Box() {
+        this.fruitBox = new ArrayList<T>();
+    }
+
+    public void add(T fruit) {
+        fruitBox.add(fruit);
     }
 
     public double getWeight() {
-        // FIXME: 21.02.2023
-        throw new UnsupportedOperationException();
+        double weight = 0;
+        for (T item : fruitBox) {
+            weight += item.getWeight();
+        }
+        return weight;
     }
 
-    public void moveTo(Box anotherBox) {
-        // FIXME: 21.02.2023
-        throw new UnsupportedOperationException();
+    public void moveTo(Box<? super T> anotherBox) {
+        for(T item: this.fruitBox){
+            anotherBox.add(item);
+        }
+        this.fruitBox.clear();
     }
-
 }
