@@ -53,6 +53,30 @@ public class RobotGameMain {
             initCreateCommandHandler();
             initListCommandHandler();
             initMoveCommandHandler();
+            initChangeDirectionCommandHandler();
+        }
+
+        private void initChangeDirectionCommandHandler() {
+            handlers.add(new CommandHandler() {
+                @Override
+                public String name() {
+                    return "changedir";
+                }
+
+                @Override
+                public void runCommand(String[] args) {
+                    Long robotId = Long.parseLong(args[0]);
+                    Direction newDirection = Direction.ofString(args[1]);
+                    Optional<RobotMap.Robot> robot = map.getById(robotId);
+                    if (robot.isPresent()) {
+                        RobotMap.Robot value = robot.get();
+                        value.changeDirection(newDirection);
+                        System.out.println("Направление робота " + robotId + " изменено на " + args[1]);
+                    } else {
+                        System.out.println("Робот с идентификатором " + robotId + " не найден");
+                    }
+                }
+            });
         }
 
         private void initCreateCommandHandler() {
