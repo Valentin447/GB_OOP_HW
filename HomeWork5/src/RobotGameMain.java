@@ -30,6 +30,9 @@ public class RobotGameMain {
                     """);
 
             String command = sc.nextLine();
+            if(command.equals("exit")){
+                break;
+            }
             manager.acceptCommand(command);
         }
 
