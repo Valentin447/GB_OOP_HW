@@ -39,6 +39,14 @@ public class RobotMap {
         return Optional.empty();
     }
 
+    public void deleteById(Long id){
+        for (int i = 0; i < robots.size(); i++) {
+            if(robots.get(i).id == id){
+                robots.remove(i);
+            }
+        }
+    }
+
     private void validatePoint(Point point) {
         validatePointIsCorrect(point);
         validatePointIsFree(point);
