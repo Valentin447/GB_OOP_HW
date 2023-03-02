@@ -7,7 +7,7 @@ public class RobotMap {
 
     private final int n;
     private final int m;
-    private final List<Robot> robots;
+    private final List<IRobot> robots;
 
     public RobotMap(int n, int m) {
         this.n = n;
@@ -15,23 +15,23 @@ public class RobotMap {
         this.robots = new ArrayList<>();
     }
 
-    public Robot createRobot(Point point) {
+    public IRobot createRobot(Point point) {
         validatePoint(point);
-        Robot robot = new Robot(point);
+        IRobot robot = new Robot(point);
         robots.add(robot);
 
         return robot;
     }
 
-    public void acceptRobots(Consumer<Robot> robotAcceptor) {
-        for (Robot robot : robots) {
+    public void acceptRobots(Consumer<IRobot> robotAcceptor) {
+        for (IRobot robot : robots) {
             robotAcceptor.accept(robot);
         }
     }
 
-    public Optional<Robot> getById(Long id) {
-        for (Robot robot : robots) {
-            if (id.equals(robot.id)) {
+    public Optional<IRobot> getById(Long id) {
+        for (IRobot robot : robots) {
+            if (id.equals(robot.getID())) {
                 return Optional.of(robot);
             }
         }
@@ -41,7 +41,7 @@ public class RobotMap {
 
     public void deleteById(Long id){
         for (int i = 0; i < robots.size(); i++) {
-            if(robots.get(i).id == id){
+            if(robots.get(i).getID() == id){
                 robots.remove(i);
             }
         }
@@ -59,15 +59,21 @@ public class RobotMap {
     }
 
     private void validatePointIsFree(Point point) {
-        for (Robot robot : robots) {
-            Point robotPoint = robot.point;
+        for (IRobot robot : robots) {
+            Point robotPoint = robot.getPoint();
             if (robotPoint.equals(point)) {
                 throw new IllegalStateException("Точка " + point + " занята!");
             }
         }
     }
+    public interface IRobot{
+        void changeDirection(Direction direction);
+        void move();
+        Point getPoint();
+        Long getID();
+    }
 
-    public class Robot {
+    public class Robot implements IRobot{
 
         public static final Direction DEFAULT_DIRECTION = Direction.TOP;
 
@@ -82,11 +88,11 @@ public class RobotMap {
             this.direction = DEFAULT_DIRECTION;
             this.point = point;
         }
-
+        @Override
         public void changeDirection(Direction direction) {
             this.direction = direction;
         }
-
+        @Override
         public void move() {
             Point newPoint = switch (direction) {
                 case TOP -> new Point(point.x() - 1, point.y());
@@ -98,6 +104,16 @@ public class RobotMap {
 
             System.out.println("Робот переместился с " + point + " на " + newPoint);
             this.point = newPoint;
+        }
+
+        @Override
+        public Point getPoint() {
+            return point;
+        }
+
+        @Override
+        public Long getID() {
+            return id;
         }
 
         @Override

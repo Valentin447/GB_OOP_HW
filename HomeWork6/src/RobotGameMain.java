@@ -74,9 +74,9 @@ public class RobotGameMain {
                 public void runCommand(String[] args) {
                     Long robotId = Long.parseLong(args[0]);
                     Direction newDirection = Direction.ofString(args[1]);
-                    Optional<RobotMap.Robot> robot = map.getById(robotId);
+                    Optional<RobotMap.IRobot> robot = map.getById(robotId);
                     if (robot.isPresent()) {
-                        RobotMap.Robot value = robot.get();
+                        RobotMap.IRobot value = robot.get();
                         value.changeDirection(newDirection);
                         System.out.println("Направление робота " + robotId + " изменено на " + args[1]);
                     } else {
@@ -96,7 +96,7 @@ public class RobotGameMain {
                 @Override
                 public void runCommand(String[] args) {
                     Long robotId = Long.parseLong(args[0]);
-                    Optional<RobotMap.Robot> robot = map.getById(robotId);
+                    Optional<RobotMap.IRobot> robot = map.getById(robotId);
                     if (robot.isPresent()) {
                         map.deleteById(robotId);
                         System.out.println("Робот " + robotId + " удален");
@@ -118,7 +118,7 @@ public class RobotGameMain {
                 public void runCommand(String[] args) {
                     int x = Integer.parseInt(args[0]);
                     int y = Integer.parseInt(args[1]);
-                    RobotMap.Robot robot = map.createRobot(new Point(x, y));
+                    RobotMap.IRobot robot = map.createRobot(new Point(x, y));
                     System.out.println("Робот " + robot + " успешно создан");
                 }
             });
@@ -155,8 +155,8 @@ public class RobotGameMain {
                 @Override
                 public void runCommand(String[] args) {
                     Long robotId = Long.parseLong(args[0]);
-                    Optional<RobotMap.Robot> robot = map.getById(robotId);
-                    robot.ifPresentOrElse(RobotMap.Robot::move, () -> System.out.println("Робот с идентификатором " + robotId + " не найден"));
+                    Optional<RobotMap.IRobot> robot = map.getById(robotId);
+                    robot.ifPresentOrElse(RobotMap.IRobot::move, () -> System.out.println("Робот с идентификатором " + robotId + " не найден"));
 
 //                    if (robot.isPresent()) {
 //                        RobotMap.Robot value = robot.get();
